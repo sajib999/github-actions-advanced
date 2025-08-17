@@ -1,0 +1,7 @@
+name: Call Reusable CI
+on: push
+jobs:
+  call-ci:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      node-version: 20
