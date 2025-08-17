@@ -1,0 +1,23 @@
+name: Debugging CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npm ci
+      - name: Print Node version
+        run: node -v
+      - name: Print current branch
+        run: echo "Running on branch ${{ github.ref }}"
+      - name: Run tests with debug
+        run: set -x npm test
+      - name: Run lint but don't fail workflow
+        run: npm run lint
+        continue-on-error: true
